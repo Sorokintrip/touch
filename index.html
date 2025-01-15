@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: transparent; /* Прозрачный фон */
+            overflow: hidden; /* Убираем прокрутку */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* Высота страницы */
+        }
+        #container {
+            display: inline-block;
+            text-align: center;
+        }
+        #message {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            color: green;
+            display: none; /* Изначально скрыт */
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="message">54.202020, 20.545454</div>
+    </div>
+
+    <script>
+        let touchTimeout;
+
+        // Элемент для отображения сообщения
+        const message = document.getElementById('message');
+
+        // Функция запуска таймера при удержании пальца
+        function startTouchTimer() {
+            touchTimeout = setTimeout(() => {
+                message.style.display = 'block';
+            }, 10000); // Показывает сообщение через 10 секунд
+        }
+
+        // Функция отмены таймера, если палец убран
+        function cancelTouchTimer() {
+            clearTimeout(touchTimeout);
+            message.style.display = 'none'; // Скрываем сообщение, если палец убран до истечения времени
+        }
+
+        // Добавляем обработчики событий
+        document.addEventListener('touchstart', startTouchTimer);
+        document.addEventListener('touchend', cancelTouchTimer);
+        document.addEventListener('touchcancel', cancelTouchTimer);
+    </script>
+</body>
+</html>
